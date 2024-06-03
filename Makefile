@@ -20,8 +20,11 @@ install :
 	install -m 0755 -d "$(DESTDIR)/etc/dracut.conf.d"
 	install -m 0644 -t "$(DESTDIR)/etc/dracut.conf.d" etc/dracut.conf.d/grub2-emu.conf
 
-dracut-nmbl-$(VERSION).tar.xz : Makefile
-	@git archive --format=tar --prefix=dracut-nmbl-$(VERSION)/ HEAD -- \
+dracut-nmbl-$(VERSION).tar.xz : Makefile dracut-nmbl.spec
+	@git archive --format=tar --prefix=dracut-nmbl-$(VERSION)/ HEAD \
+		--add-file dracut-nmbl.spec \
+		--add-file utils.mk \
+		-- \
 		99grub2-emu-kexec/ \
 		99grub2-emu-switchroot/ \
 		etc/ \
